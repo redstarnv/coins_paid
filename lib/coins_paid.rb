@@ -1,0 +1,2 @@
+module CoinsPaid
+end
