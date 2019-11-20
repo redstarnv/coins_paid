@@ -5,7 +5,6 @@ if ENV['CIRCLE_ARTIFACTS']
   SimpleCov.start
 end
 
-require 'pry'
 require 'active_record'
 require "active_record/railtie"
 require 'rspec/rails'

@@ -1,21 +1,14 @@
 # frozen_string_literal: true
+require_relative '../../../lib/generators/coins_paid/migration_data'
 
 class CreateTable < ActiveRecord::Migration[ActiveRecord::Migration.current_version]
   def up
     drop_table :coins_paid_addresses if table_exists?(:coins_paid_addresses)
 
-    create_table :coins_paid_addresses do |t|
-      t.string :foreign_id, null: false
-      t.string :currency, null: false
-      t.string :address, null: false
-      t.string :tag
-      t.integer :external_id, null: false
-
-      t.timestamps
-      t.index [:foreign_id, :currency], unique: true
-    end
+    migration_data
   end
 
-  def down
+  def migration_data
+    instance_eval CoinsPaid::MigrationData.get
   end
 end
