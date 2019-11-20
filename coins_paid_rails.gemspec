@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name = 'coins_paid'
+  s.name = 'coins_paid_rails'
   s.authors = ['Artem Biserov(artembiserov)', 'Oleg Ivanov(morhekil)']
   s.version = '1.0.0'
   s.files = `git ls-files`.split("\n")
