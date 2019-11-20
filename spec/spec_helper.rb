@@ -10,7 +10,6 @@ require "active_record/railtie"
 require 'rspec/rails'
 require 'rspec/its'
 
-require 'coins_paid_api'
 require 'coins_paid_rails'
 
 Dir['./spec/support/**/*.rb'].each { |f| require f }
