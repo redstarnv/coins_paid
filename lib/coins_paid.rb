@@ -14,11 +14,12 @@ module CoinsPaid
 
   ADDRESS_PREFIXES = {
     'BTC' => 'bitcoin',
+    'BCH' => 'bitcoincash',
     'ETH' => 'ethereum',
+    'EURTE' => 'ethereum',
     'LTC' => 'litecoin',
     'USDT' => 'bitcoin',
-    'USDTE' => 'ethereum',
-    'EURTE' => 'ethereum'
+    'USDTE' => 'ethereum'
   }.freeze
 
   def address(foreign_id, currency:)
