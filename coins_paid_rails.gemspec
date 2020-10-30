@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = 'coins_paid_rails'
   s.authors = ['Artem Biserov(artembiserov)', 'Oleg Ivanov(morhekil)']
-  s.version = '1.0.1'
+  s.version = '1.1.0'
   s.files = `git ls-files`.split("\n")
   s.summary = 'CoinsPaid Rails Integration'
   s.license = 'MIT'
@@ -12,4 +12,3 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'dry-struct', '~> 1.0'
   s.add_development_dependency 'rspec-rails', '~> 3.0'
 end
-

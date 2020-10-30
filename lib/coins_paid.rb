@@ -12,10 +12,13 @@ module CoinsPaid
 
   DEFAULT_CONVERT_TO = ENV['COINS_PAID_CURRENCY']
 
-  CRYPTO_CURRENCIES = {
+  ADDRESS_PREFIXES = {
     'BTC' => 'bitcoin',
     'ETH' => 'ethereum',
-    'LTC' => 'litecoin'
+    'LTC' => 'litecoin',
+    'USDT' => 'bitcoin',
+    'USDTE' => 'ethereum',
+    'EURTE' => 'ethereum'
   }.freeze
 
   def address(foreign_id, currency:)

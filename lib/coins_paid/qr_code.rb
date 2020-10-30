@@ -30,7 +30,7 @@ module CoinsPaid
     private
 
     def token_type
-      CRYPTO_CURRENCIES.fetch(currency)
+      ADDRESS_PREFIXES.fetch(currency)
     end
 
     def encode(string)
