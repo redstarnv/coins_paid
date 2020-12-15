@@ -17,9 +17,11 @@ module CoinsPaid
     end
 
     def call
-      CoinsPaidAddress.find_or_create_by!(request_data.attributes.slice(:foreign_id, :currency)) do |address|
-        response = CoinsPaid::API.take_address(request_data.attributes)
-        address.assign_attributes(response.attributes)
+      ActiveRecord::Base.transaction do
+        CoinsPaidAddress.lock.find_or_create_by!(request_data.attributes.slice(:foreign_id, :currency)) do |address|
+          response = CoinsPaid::API.take_address(request_data.attributes)
+          address.assign_attributes(response.attributes)
+        end
       end
     end
   end
