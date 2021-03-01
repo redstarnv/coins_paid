@@ -19,7 +19,9 @@ module CoinsPaid
     'EURTE' => 'ethereum',
     'LTC' => 'litecoin',
     'USDT' => 'bitcoin',
-    'USDTE' => 'ethereum'
+    'USDTE' => 'ethereum',
+    'TRX' => 'tron',
+    'USDTT' => 'tron'
   }.freeze
 
   def address(foreign_id, currency:)

@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = 'coins_paid_rails'
   s.authors = ['Artem Biserov(artembiserov)', 'Oleg Ivanov(morhekil)']
-  s.version = '1.1.2'
+  s.version = '1.1.3'
   s.files = `git ls-files`.split("\n")
   s.summary = 'CoinsPaid Rails Integration'
   s.license = 'MIT'
