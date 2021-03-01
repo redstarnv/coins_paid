@@ -35,12 +35,12 @@ jobs:
       - restore_cache:
           key: v4-repo-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache:
-          key: v4-bundle-{{ checksum "Gemfile" }}
+          key: v4-bundle-{{ checksum "Gemfile.lock" }}
       - run: echo "export rvm_ignore_gemsets_flag=1" >> ~/.rvmrc
       - run: sudo apt-get update && sudo apt-get install -y libsodium-dev
-      - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3 
+      - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
       - save_cache:
-          key: v4-bundle-{{ checksum "Gemfile" }}
+          key: v4-bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - ~/coins_paid/vendor/bundle
 
@@ -55,7 +55,7 @@ jobs:
       - restore_cache:
           key: v4-repo-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache:
-          key: v4-bundle-{{ checksum "Gemfile" }}
+          key: v4-bundle-{{ checksum "Gemfile.lock" }}
       - attach_workspace:
           at: ~/coins_paid
       - run: sudo apt-get update && sudo apt-get install -y libsodium-dev
@@ -83,7 +83,7 @@ jobs:
       - restore_cache:
           key: v4-repo-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache:
-          key: v4-bundle-{{ checksum "Gemfile" }}
+          key: v4-bundle-{{ checksum "Gemfile.lock" }}
       - run: mkdir -p ~/.ssh && ssh-keyscan -H github.com >> ~/.ssh/known_hosts
       - run: sudo apt-get update && sudo apt-get install -y libsodium-dev
       - run: bundle check --path vendor/bundle
