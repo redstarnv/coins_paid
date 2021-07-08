@@ -15,6 +15,7 @@ module CoinsPaid
   ADDRESS_PREFIXES = {
     'BTC' => 'bitcoin',
     'BCH' => 'bitcoincash',
+    'DOGE' => 'doge',
     'ETH' => 'ethereum',
     'EURTE' => 'ethereum',
     'LTC' => 'litecoin',
