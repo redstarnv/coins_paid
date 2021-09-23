@@ -2,6 +2,7 @@
 
 describe CoinsPaid, '.qr_code' do
   let(:foreign_id) { 123 }
+  let(:currency) { 'BTC' }
   let(:address) { 'abc123' }
   let(:coins_paid_address) do
     instance_double CoinsPaid::CoinsPaidAddress,
@@ -50,5 +51,9 @@ describe CoinsPaid, '.qr_code' do
         qr_code.svg
       end
     end
+  end
+
+  context '#address' do
+    its(:address) { is_expected.to eq coins_paid_address }
   end
 end

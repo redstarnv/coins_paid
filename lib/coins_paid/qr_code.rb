@@ -10,15 +10,15 @@ module CoinsPaid
     end
 
     def url
-      known_url? ? "#{token_type}:#{address}?label=#{encode(label)}&message=#{encode(message)}" : nil
+      known_url? ? "#{token_type}:#{address.address}?label=#{encode(label)}&message=#{encode(message)}" : nil
     end
 
     def address
-      @address ||= CoinsPaid.address(player_id, currency: currency).address
+      @address ||= CoinsPaid.address(player_id, currency: currency)
     end
 
     def svg
-      RQRCode::QRCode.new(url || address).as_svg(
+      RQRCode::QRCode.new(url || address.address).as_svg(
         offset: 0,
         color: '000',
         shape_rendering: 'crispEdges',
