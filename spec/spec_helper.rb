@@ -9,6 +9,7 @@ require 'active_record'
 require "active_record/railtie"
 require 'rspec/rails'
 require 'rspec/its'
+require 'rqrcode'
 
 require 'coins_paid_rails'
 
