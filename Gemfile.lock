@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    coins_paid_rails (1.1.6)
+    coins_paid_rails (1.1.7)
       activerecord (>= 4.2.0)
       coins_paid_api (~> 1.0)
       dry-initializer (~> 3.0)
