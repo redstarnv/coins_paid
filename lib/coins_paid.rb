@@ -36,4 +36,8 @@ module CoinsPaid
   def currency(name)
     CoinsPaid::API.currencies_list.find { |item| item.currency == name } || raise(UnknownCurrency, name)
   end
+
+  def issued_addresses(foreign_id)
+    CoinsPaidAddress.where(foreign_id: foreign_id).order(:currency)
+  end
 end
