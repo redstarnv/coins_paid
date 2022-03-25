@@ -3,6 +3,7 @@
 describe CoinsPaid, '.address' do
   let(:foreign_key) { 'user-id:2048' }
   let(:currency) { 'BTC' }
+  let(:convert_to) { 'EUR' }
   let(:full_address_attributes) do
     {
       foreign_id: foreign_key,
@@ -16,7 +17,7 @@ describe CoinsPaid, '.address' do
       tag: 'tag-123',
     }
   end
-  subject(:take_address) { described_class.address(foreign_key, currency: currency) }
+  subject(:take_address) { described_class.address(foreign_key, currency: currency, convert_to: convert_to) }
 
   context 'when there is existing record' do
     let!(:address) do

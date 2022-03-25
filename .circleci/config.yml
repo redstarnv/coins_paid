@@ -1,8 +1,9 @@
 version: 2.0
+
 defaults: &defaults
   docker:
-    - image: circleci/ruby:2.5-stretch-node
-  working_directory: ~/coins_paid
+    - image: cimg/ruby:2.7-node
+  working_directory: ~/project
 
 jobs:
   checkout_code:
@@ -10,10 +11,10 @@ jobs:
     steps:
       - checkout
       - run: mkdir log
-      - save_cache:
-          key: v4-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - persist_to_workspace:
+          root: ~/project
           paths:
-            - ~/coins_paid
+            - ./
 
   download_cc_reporter:
     <<: *defaults
@@ -25,45 +26,45 @@ jobs:
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc/cc-test-reporter
             chmod +x ./cc/cc-test-reporter
       - persist_to_workspace:
-          root: ~/coins_paid
+          root: ~/project
           paths:
             - cc/cc-test-reporter
 
   run_bundler:
     <<: *defaults
     steps:
+      - attach_workspace:
+          at: ~/project
       - restore_cache:
-          key: v4-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          key: v4-bundle-{{ checksum "Gemfile.lock" }}
+          key: v1-bundle-{{ checksum "Gemfile.lock" }}
       - run: echo "export rvm_ignore_gemsets_flag=1" >> ~/.rvmrc
       - run: sudo apt-get update && sudo apt-get install -y libsodium-dev
-      - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+      - run: bundle config set --local path 'vendor/bundle'
+      - run: bundle check || bundle install --path=vendor/bundle --jobs=4 --retry=3
       - save_cache:
-          key: v4-bundle-{{ checksum "Gemfile.lock" }}
+          key: v1-bundle-{{ checksum "Gemfile.lock" }}
           paths:
-            - ~/coins_paid/vendor/bundle
+            - ~/project/vendor/bundle
 
   run_rspec_tests:
     <<: *defaults
     docker:
-      - image: circleci/ruby:2.5-stretch-node
+      - image: cimg/ruby:2.7-node
     environment:
       RACK_ENV: "test"
       CIRCLE_ARTIFACTS: "./tmp"
     steps:
-      - restore_cache:
-          key: v4-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          key: v4-bundle-{{ checksum "Gemfile.lock" }}
       - attach_workspace:
-          at: ~/coins_paid
+          at: ~/project
+      - restore_cache:
+          key: v1-bundle-{{ checksum "Gemfile.lock" }}
       - run: sudo apt-get update && sudo apt-get install -y libsodium-dev
-      - run: bundle check --path vendor/bundle
+      - run: bundle config set --local path 'vendor/bundle'
+      - run: bundle check
       - run: bundle exec rspec spec
       - run: ./cc/cc-test-reporter format-coverage -t simplecov -o cc/codeclimate.rspec.json tmp/coverage/.resultset.json
       - persist_to_workspace:
-          root: ~/coins_paid
+          root: ~/project
           paths:
             - cc/codeclimate.rspec.json
 
@@ -71,23 +72,11 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: ~/coins_paid
+          at: ~/project
       - run:
           name: Upload coverage results to Code Climate
           command: |
             ./cc/cc-test-reporter upload-coverage -i cc/codeclimate.rspec.json
-
-  deploy:
-    <<: *defaults
-    steps:
-      - restore_cache:
-          key: v4-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          key: v4-bundle-{{ checksum "Gemfile.lock" }}
-      - run: mkdir -p ~/.ssh && ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-      - run: sudo apt-get update && sudo apt-get install -y libsodium-dev
-      - run: bundle check --path vendor/bundle
-      - run: bundle exec rake deploy:branch_or_label
 
 workflows:
   version: 2
