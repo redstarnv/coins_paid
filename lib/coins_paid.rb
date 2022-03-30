@@ -9,7 +9,7 @@ module CoinsPaid
 
   UnknownCurrency = Class.new RuntimeError
 
-  def address(foreign_id, currency:, convert_to:)
+  def address(foreign_id, currency:, convert_to: currency)
     Address.new(foreign_id: foreign_id, currency: currency, convert_to: convert_to).call
   end
 
@@ -18,6 +18,6 @@ module CoinsPaid
   end
 
   def issued_addresses(foreign_id)
-    CoinsPaidAddress.where(foreign_id: foreign_id).order(:currency)
+    CoinsPaidAddress.where(foreign_id: foreign_id).order(:currency, :convert_to)
   end
 end
