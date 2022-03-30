@@ -6,7 +6,7 @@ if ENV['CIRCLE_ARTIFACTS']
 end
 
 require 'active_record'
-require "active_record/railtie"
+require 'active_record/railtie'
 require 'rspec/rails'
 require 'rspec/its'
 require 'rqrcode'
