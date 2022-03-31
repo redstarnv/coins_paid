@@ -1,12 +1,12 @@
 Gem::Specification.new do |s|
   s.name = 'coins_paid_rails'
   s.authors = ['Artem Biserov(artembiserov)', 'Oleg Ivanov(morhekil)']
-  s.version = '1.3.0'
+  s.version = '1.4.0'
   s.files = `git ls-files`.split("\n")
   s.summary = 'CoinsPaid Rails Integration'
   s.license = 'MIT'
 
-  s.add_runtime_dependency 'coins_paid_api', '~> 1.0'
+  s.add_runtime_dependency 'coins_paid_api', '>= 1.2.0', '<2.0'
   s.add_runtime_dependency 'activerecord', '~> 6.1.4'
   s.add_runtime_dependency 'dry-initializer', '~> 3.0'
   s.add_runtime_dependency 'dry-struct', '~> 1.0'
