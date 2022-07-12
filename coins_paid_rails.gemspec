@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
 
   s.add_runtime_dependency 'coins_paid_api', '>= 1.2.0', '<2.0'
-  s.add_runtime_dependency 'activerecord', '~> 6.1.4'
+  s.add_runtime_dependency 'activerecord', '>= 6.1.4', '< 7.1.0'
   s.add_runtime_dependency 'dry-initializer', '~> 3.0'
   s.add_runtime_dependency 'dry-struct', '~> 1.0'
   s.add_development_dependency 'rspec-rails'
