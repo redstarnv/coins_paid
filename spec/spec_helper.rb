@@ -1,6 +1,6 @@
 ENV['COINS_PAID_CURRENCY'] = 'EUR'
 
-if ENV['CIRCLE_ARTIFACTS']
+if ENV['COVERAGE']
   require 'simplecov'
   SimpleCov.start
 end
